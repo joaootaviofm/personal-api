@@ -1,9 +1,10 @@
 from fastapi import APIRouter, Depends, HTTPException, status
-from sqlalchemy.orm import Session 
+from sqlalchemy.orm import Session
+from starlette.status import HTTP_404_NOT_FOUND 
 from app.schemas.workouts import WorkoutCreate, WorkoutRead
 from app.db.db import get_db
 from app.models.workouts import Workout
-from app.services.workouts import create_workout, delete_workout
+from app.services.workouts import create_workout, delete_workout, get_workouts
 
 router = APIRouter(prefix="/workouts", tags=["workouts"])
 
@@ -19,3 +20,7 @@ def delete_workout_route(workout_id : int, db : Session = Depends(get_db)) -> No
             status_code = status.HTTP_404_NOT_FOUND,
             detail="Workout not found."
         )
+    
+@router.get("/", response_model=list[WorkoutRead])
+def get_workouts_route(db : Session = Depends(get_db)):
+    return get_workouts(db)

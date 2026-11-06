@@ -1,5 +1,5 @@
 from sqlalchemy.orm import Session
-
+from sqlalchemy import select
 from app.models.workouts import Workout 
 from app.schemas.workouts import WorkoutCreate
 
@@ -22,4 +22,6 @@ def delete_workout(db : Session, workout_id : int) -> bool:
     db.delete(workout)
     db.commit()
     return True
-    
+
+def get_workouts(db : Session) -> list[Workout]:
+    return list(db.scalars(select(Workout)))
