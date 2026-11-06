@@ -6,7 +6,7 @@ from app.models.workouts import Workout
 from app.services.workouts import create_workout, delete_workout, get_workout_by_id, get_workouts, update_workout
 from app.core.auth import require_api_token
 
-router = APIRouter(prefix="/workouts", tags=["workouts"], dependencies=[Depends(require_api_token())])
+router = APIRouter(prefix="/workouts", tags=["workouts"], dependencies=[Depends(require_api_token)])
 
 @router.post("/", response_model=WorkoutRead, status_code=201)
 def post_workout(data : WorkoutCreate, db : Session = Depends(get_db)) -> Workout:
