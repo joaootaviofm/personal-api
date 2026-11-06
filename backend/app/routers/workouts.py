@@ -4,7 +4,7 @@ from starlette.status import HTTP_404_NOT_FOUND
 from app.schemas.workouts import WorkoutCreate, WorkoutRead
 from app.db.db import get_db
 from app.models.workouts import Workout
-from app.services.workouts import create_workout, delete_workout, get_workouts
+from app.services.workouts import create_workout, delete_workout, get_workout_by_id, get_workouts
 
 router = APIRouter(prefix="/workouts", tags=["workouts"])
 
@@ -24,3 +24,14 @@ def delete_workout_route(workout_id : int, db : Session = Depends(get_db)) -> No
 @router.get("/", response_model=list[WorkoutRead])
 def get_workouts_route(db : Session = Depends(get_db)):
     return get_workouts(db)
+
+@router.get("/{workout_id}", response_model=WorkoutRead)
+def get_workout_by_id_route(workout_id, db : Session = Depends(get_db)):
+    
+    workout = get_workout_by_id(db, workout_id)
+    if not workout:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Workout not found."
+        )
+    return workout 
