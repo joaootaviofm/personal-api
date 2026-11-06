@@ -1,6 +1,5 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
-from starlette.status import HTTP_404_NOT_FOUND 
 from app.schemas.workouts import WorkoutCreate, WorkoutRead
 from app.db.db import get_db
 from app.models.workouts import Workout
