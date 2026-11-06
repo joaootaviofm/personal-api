@@ -22,3 +22,6 @@ class WorkoutRead(BaseModel):
     exercises : list[Exercise]
 
     model_config = ConfigDict(from_attributes=True)
+
+class WorkoutUpdate(WorkoutCreate):
+    pass
