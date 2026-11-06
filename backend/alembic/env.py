@@ -1,10 +1,9 @@
 from logging.config import fileConfig
-import os
 import sys
 from app.models.workouts import Base
 from sqlalchemy import engine_from_config
 from sqlalchemy import pool
-
+from app.core.settings import settings
 from alembic import context
 
 
@@ -16,7 +15,7 @@ if config.config_file_name is not None:
 
 config.set_main_option(
     "sqlalchemy.url",
-    os.environ["DATABASE_URL"].replace("%", "%%"),
+    settings.database_url.replace("%", "%%"),
 )
 target_metadata = Base.metadata
 
