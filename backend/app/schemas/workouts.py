@@ -1,10 +1,14 @@
 from datetime import date
 from pydantic import BaseModel
 
-class Exercise(BaseModel):
-    name : str
+
+class Set(BaseModel):
     weight : float
     repetitions : float
+
+class Exercise(BaseModel):
+    name : str
+    sets : list[Set]
 
 class WorkoutCreate(BaseModel):
     name : str
