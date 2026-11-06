@@ -29,9 +29,8 @@ def delete_workout(db : Session, workout_id : int) -> bool:
 def get_workouts(db : Session) -> list[Workout]:
     return list(db.scalars(select(Workout)))
 
-def get_workout_by_id(db : Session, workout_id) -> bool:
-    workout = db.get(Workout, workout_id)
-    if workout is None:
-        return False
+def get_workout_by_id(db : Session, workout_id : int) -> Workout | None:
+    return db.get(Workout, workout_id)
+
     
-    return workout
+    

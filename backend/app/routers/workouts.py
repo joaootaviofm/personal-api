@@ -26,10 +26,10 @@ def get_workouts_route(db : Session = Depends(get_db)):
     return get_workouts(db)
 
 @router.get("/{workout_id}", response_model=WorkoutRead)
-def get_workout_by_id_route(workout_id, db : Session = Depends(get_db)):
+def get_workout_by_id_route(workout_id : int, db : Session = Depends(get_db)):
     
     workout = get_workout_by_id(db, workout_id)
-    if not workout:
+    if workout is None:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
             detail="Workout not found."
