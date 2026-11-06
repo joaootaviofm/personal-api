@@ -15,3 +15,11 @@ def create_workout(db : Session, data : WorkoutCreate) -> Workout:
     db.refresh(workout)
     return workout
 
+def delete_workout(db : Session, workout_id : int) -> bool:
+    workout = db.get(Workout, workout_id)
+    if workout is None:
+        return False
+    db.delete(workout)
+    db.commit()
+    return True
+    
