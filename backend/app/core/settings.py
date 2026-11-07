@@ -9,5 +9,6 @@ class Settings(BaseSettings):
 
     database_url : str
     api_token : str
+    frontend_origin : str
 
 settings = Settings()
