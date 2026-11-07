@@ -5,6 +5,8 @@ from sqlalchemy import engine_from_config
 from sqlalchemy import pool
 from app.core.settings import settings
 from alembic import context
+import os 
+import app.models.sleep # noqa: F401
 
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
